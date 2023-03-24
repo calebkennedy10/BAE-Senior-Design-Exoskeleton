@@ -29,8 +29,18 @@ unsigned long SecondPulseTime = 0;
 unsigned long PulseInterval = 0;
 CircularBuffer<int,30> buffer;
 
-int circular_buffer[BUFFER_SIZE];
-int data_index, sum;
+int circular_buffer1[BUFFER_SIZE];
+int circular_buffer2[BUFFER_SIZE];
+int circular_buffer3[BUFFER_SIZE];
+int circular_buffer4[BUFFER_SIZE];
+int circular_buffer5[BUFFER_SIZE];
+int circular_buffer6[BUFFER_SIZE];
+int data_index1, sum1;
+int data_index2, sum2;
+int data_index3, sum3;
+int data_index4, sum4;
+int data_index5, sum5;
+int data_index6, sum6;
 
 
 void setup() {
@@ -56,28 +66,28 @@ void loop() {
     timer_EMG += 1000000 / SAMPLE_RATE_EMG;
 
     int sensor_value_EMG1 = analogRead(INPUT_PIN_EMG1);
-    int signal_EMG1 = EMGFilter(sensor_value_EMG1);
-    int envelop_EMG1 = getEnvelop(abs(signal_EMG1));
+    int signal_EMG1 = EMGFilter1(sensor_value_EMG1);
+    int envelop_EMG1 = getEnvelop1(abs(signal_EMG1));
 
     int sensor_value_EMG2 = analogRead(INPUT_PIN_EMG2);
-    int signal_EMG2 = EMGFilter(sensor_value_EMG2);
-    int envelop_EMG2 = getEnvelop(abs(signal_EMG2));
+    int signal_EMG2 = EMGFilter2(sensor_value_EMG2);
+    int envelop_EMG2 = getEnvelop2(abs(signal_EMG2));
 
     int sensor_value_EMG3 = analogRead(INPUT_PIN_EMG3);
-    int signal_EMG3 = EMGFilter(sensor_value_EMG3);
-    int envelop_EMG3 = getEnvelop(abs(signal_EMG3));
+    int signal_EMG3 = EMGFilter3(sensor_value_EMG3);
+    int envelop_EMG3 = getEnvelop3(abs(signal_EMG3));
 
     int sensor_value_EMG4 = analogRead(INPUT_PIN_EMG4);
-    int signal_EMG4 = EMGFilter(sensor_value_EMG4);
-    int envelop_EMG4 = getEnvelop(abs(signal_EMG4));
+    int signal_EMG4 = EMGFilter4(sensor_value_EMG4);
+    int envelop_EMG4 = getEnvelop4(abs(signal_EMG4));
 
     int sensor_value_EMG5 = analogRead(INPUT_PIN_EMG5);
-    int signal_EMG5 = EMGFilter(sensor_value_EMG5);
-    int envelop_EMG5 = getEnvelop(abs(signal_EMG5));
+    int signal_EMG5 = EMGFilter5(sensor_value_EMG5);
+    int envelop_EMG5 = getEnvelop5(abs(signal_EMG5));
 
     int sensor_value_EMG6 = analogRead(INPUT_PIN_EMG6);
-    int signal_EMG6 = EMGFilter(sensor_value_EMG6);
-    int envelop_EMG6 = getEnvelop(abs(signal_EMG6));
+    int signal_EMG6 = EMGFilter6(sensor_value_EMG6);
+    int envelop_EMG6 = getEnvelop6(abs(signal_EMG6));
 
     Serial.print(-100); // To freeze the lower limit of live plot
     Serial.print(",");
@@ -85,32 +95,26 @@ void loop() {
     Serial.print(",");
 
     //Serial.print(signal_EMG1);
-    Serial.print(",");
     Serial.print(envelop_EMG1);
     Serial.print(",");
 
     //Serial.print(signal_EMG2);
-    Serial.print(",");
     Serial.print(envelop_EMG2);
     Serial.print(",");
 
     //Serial.print(signal_EMG3);
-    Serial.print(",");
     Serial.print(envelop_EMG3);
     Serial.print(",");
 
     //Serial.print(signal_EMG4);
-    Serial.print(",");
     Serial.print(envelop_EMG4);
     Serial.print(",");
 
     //Serial.print(signal_EMG5);
-    Serial.print(",");
     Serial.print(envelop_EMG5);
     Serial.print(",");
 
     //Serial.print(signal_EMG6);
-    Serial.print(",");
     Serial.println(envelop_EMG6);
 
   }
@@ -157,15 +161,60 @@ void loop() {
 }
 
 // Envelop detection algorithm
-int getEnvelop(int abs_emg)
+int getEnvelop1(int abs_emg)
 {
-  sum -= circular_buffer[data_index];
-  sum += abs_emg;
-  circular_buffer[data_index] = abs_emg;
-  data_index = (data_index + 1) % BUFFER_SIZE;
-  return (sum/BUFFER_SIZE) * 2;
+  sum1 -= circular_buffer1[data_index1];
+  sum1 += abs_emg;
+  circular_buffer1[data_index1] = abs_emg;
+  data_index1 = (data_index1 + 1) % BUFFER_SIZE;
+  return (sum1/BUFFER_SIZE) * 2;
 }
 
+int getEnvelop2(int abs_emg)
+{
+  sum2 -= circular_buffer2[data_index2];
+  sum2 += abs_emg;
+  circular_buffer2[data_index2] = abs_emg;
+  data_index2 = (data_index2 + 1) % BUFFER_SIZE;
+  return (sum2/BUFFER_SIZE) * 2;
+}
+
+int getEnvelop3(int abs_emg)
+{
+  sum3 -= circular_buffer3[data_index3];
+  sum3 += abs_emg;
+  circular_buffer3[data_index3] = abs_emg;
+  data_index3 = (data_index3 + 1) % BUFFER_SIZE;
+  return (sum3/BUFFER_SIZE) * 2;
+}
+
+int getEnvelop4(int abs_emg)
+{
+  sum4 -= circular_buffer4[data_index4];
+  sum4 += abs_emg;
+  circular_buffer4[data_index4] = abs_emg;
+  data_index4 = (data_index4 + 1) % BUFFER_SIZE;
+  return (sum4/BUFFER_SIZE) * 2;
+}
+
+int getEnvelop5(int abs_emg)
+{
+  sum5 -= circular_buffer5[data_index5];
+  sum5 += abs_emg;
+  circular_buffer5[data_index5] = abs_emg;
+  data_index5 = (data_index5 + 1) % BUFFER_SIZE;
+  return (sum5/BUFFER_SIZE) * 2;
+}
+
+int getEnvelop6(int abs_emg)
+{
+  sum6 -= circular_buffer6[data_index6];
+  sum6 += abs_emg;
+  circular_buffer6[data_index6] = abs_emg;
+  data_index6 = (data_index6 + 1) % BUFFER_SIZE;
+  return (sum6/BUFFER_SIZE) * 2;
+}
+/*
 bool Getpeak(float new_sample) {
   // Buffers for data, mean, and standard deviation
   static float data_buffer[DATA_LENGTH];
@@ -205,6 +254,7 @@ bool Getpeak(float new_sample) {
   // Return peak
   return peak;
 }
+*/
 
 // Band-Pass Butterworth IIR digital filter, generated using filter_gen.py.
 // Sampling rate: 500.0 Hz, frequency: [74.5, 149.5] Hz.
@@ -212,7 +262,7 @@ bool Getpeak(float new_sample) {
 // Reference: 
 // https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.butter.html
 // https://courses.ideate.cmu.edu/16-223/f2020/Arduino/FilterDemos/filter_gen.py
-float EMGFilter(float input)
+float EMGFilter1(float input)
 {
   float output = input;
   {
@@ -246,6 +296,176 @@ float EMGFilter(float input)
   return output;
 }
 
+float EMGFilter2(float input)
+{
+  float output = input;
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.05159732*z1 - 0.36347401*z2;
+    output = 0.01856301*x + 0.03712602*z1 + 0.01856301*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -0.53945795*z1 - 0.39764934*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.47319594*z1 - 0.70744137*z2;
+    output = 1.00000000*x + 2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -1.00211112*z1 - 0.74520226*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  return output;
+}
+
+float EMGFilter3(float input)
+{
+  float output = input;
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.05159732*z1 - 0.36347401*z2;
+    output = 0.01856301*x + 0.03712602*z1 + 0.01856301*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -0.53945795*z1 - 0.39764934*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.47319594*z1 - 0.70744137*z2;
+    output = 1.00000000*x + 2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -1.00211112*z1 - 0.74520226*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  return output;
+}
+
+float EMGFilter4(float input)
+{
+  float output = input;
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.05159732*z1 - 0.36347401*z2;
+    output = 0.01856301*x + 0.03712602*z1 + 0.01856301*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -0.53945795*z1 - 0.39764934*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.47319594*z1 - 0.70744137*z2;
+    output = 1.00000000*x + 2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -1.00211112*z1 - 0.74520226*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  return output;
+}
+
+float EMGFilter5(float input)
+{
+  float output = input;
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.05159732*z1 - 0.36347401*z2;
+    output = 0.01856301*x + 0.03712602*z1 + 0.01856301*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -0.53945795*z1 - 0.39764934*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.47319594*z1 - 0.70744137*z2;
+    output = 1.00000000*x + 2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -1.00211112*z1 - 0.74520226*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  return output;
+}
+
+float EMGFilter6(float input)
+{
+  float output = input;
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.05159732*z1 - 0.36347401*z2;
+    output = 0.01856301*x + 0.03712602*z1 + 0.01856301*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -0.53945795*z1 - 0.39764934*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - 0.47319594*z1 - 0.70744137*z2;
+    output = 1.00000000*x + 2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  {
+    static float z1, z2; // filter section state
+    float x = output - -1.00211112*z1 - 0.74520226*z2;
+    output = 1.00000000*x + -2.00000000*z1 + 1.00000000*z2;
+    z2 = z1;
+    z1 = x;
+  }
+  return output;
+}
+/*
 // Band-Pass Butterworth IIR digital filter, generated using filter_gen.py.
 // Sampling rate: 125.0 Hz, frequency: [0.5, 44.5] Hz.
 // Filter is order 4, implemented as second-order sections (biquads).
@@ -285,3 +505,4 @@ float ECGFilter(float input)
   }
   return output;
 }
+*/
